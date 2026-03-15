@@ -32,17 +32,15 @@ cd app
 ## 3. Configure production variables
 
 ```bash
-cp infra/deploy/.env.prod.example infra/deploy/.env.prod
+chmod +x infra/deploy/init-prod-env.sh
+./infra/deploy/init-prod-env.sh
 ```
 
-Set strong secrets before starting the stack:
+Then open the file and review the deployment values:
 
 - `APP_DOMAIN`
 - `API_DOMAIN`
-- `DB_PASSWORD`
-- `DB_ROOT_PASSWORD`
-- `JWT_ACCESS_SECRET`
-- `JWT_REFRESH_SECRET`
+- `APP_ORIGIN`
 
 ## 4. Start the stack
 
