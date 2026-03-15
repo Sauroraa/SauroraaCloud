@@ -36,6 +36,12 @@ chmod +x infra/deploy/init-prod-env.sh
 ./infra/deploy/init-prod-env.sh
 ```
 
+This script is idempotent:
+
+- it creates `infra/deploy/.env.prod` if missing
+- it preserves existing secrets
+- it only generates missing passwords and JWT secrets once
+
 Then open the file and review the deployment values:
 
 - `APP_DOMAIN`
@@ -49,13 +55,28 @@ chmod +x infra/deploy/deploy.sh
 ./infra/deploy/deploy.sh
 ```
 
+The deploy script:
+
+- ensures `infra/deploy/.env.prod` exists
+- fills any missing required variables
+- enables HTTPS automatically when a certificate exists in `/etc/letsencrypt/live/<APP_DOMAIN>/`
+
 ## 5. TLS and DNS
 
 Before public launch:
 
 - Point `cloud.sauroraa.be` and `api.cloud.sauroraa.be` to the VPS IP
-- Replace the HTTP-only Nginx config with TLS termination
-- Add Let's Encrypt certificates or your existing certificate chain
+- Request a Let's Encrypt certificate for `cloud.sauroraa.be`
+- Re-run `./infra/deploy/deploy.sh` to switch Nginx to HTTPS automatically
+
+Optional but recommended after the first certificate issuance:
+
+```bash
+chmod +x infra/deploy/install-certbot-renew-hook.sh
+sudo ./infra/deploy/install-certbot-renew-hook.sh
+```
+
+That hook redeploys the Nginx container after future certificate renewals.
 
 ## 6. Operations
 

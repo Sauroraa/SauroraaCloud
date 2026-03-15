@@ -1,6 +1,6 @@
 server {
     listen 80;
-    server_name _;
+    server_name __APP_DOMAIN__;
 
     client_max_body_size 100M;
 
@@ -25,3 +25,4 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
+

@@ -13,5 +13,5 @@ backend/dist/
 frontend/dist/
 infra/data/
 infra/backups/
+infra/nginx/generated/
 *.log
-
