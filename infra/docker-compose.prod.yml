@@ -1,0 +1,67 @@
+services:
+  nginx:
+    image: nginx:1.27-alpine
+    depends_on:
+      - frontend
+      - api
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+    networks:
+      - edge
+      - internal
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    networks:
+      - edge
+
+  api:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./deploy/.env.prod
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+      - redis
+    networks:
+      - internal
+
+  mariadb:
+    image: mariadb:11.7
+    environment:
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+    networks:
+      - internal
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - internal
+
+networks:
+  edge:
+  internal:
+    internal: true
+
+volumes:
+  mariadb_data:
+  redis_data:
+

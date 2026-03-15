@@ -1,0 +1,17 @@
+node_modules/
+dist/
+build/
+.vite/
+.turbo/
+.DS_Store
+Thumbs.db
+.env
+.env.local
+.env.*.local
+coverage/
+backend/dist/
+frontend/dist/
+infra/data/
+infra/backups/
+*.log
+
