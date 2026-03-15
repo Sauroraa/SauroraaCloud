@@ -1,4 +1,6 @@
 import { PageIntro } from "../../shared/ui/PageIntro";
+import { AuroraSurface } from "../../shared/ui/AuroraSurface";
+import { SignalBadge } from "../../shared/ui/SignalBadge";
 
 const spaces = [
   { name: "Strategy Office", scope: "Executive", members: 6 },
@@ -17,21 +19,18 @@ export function WorkspacesPage() {
 
       <section className="mt-6 grid gap-4 lg:grid-cols-3">
         {spaces.map((space) => (
-          <article
+          <AuroraSurface
             key={space.name}
-            className="rounded-[28px] border border-slate-200/80 bg-white p-6 shadow-halo"
+            className="rounded-[28px] p-6"
           >
-            <p className="text-xs uppercase tracking-[0.24em] text-slate-400">
-              {space.scope}
-            </p>
-            <h4 className="mt-3 text-xl font-semibold text-ink">{space.name}</h4>
-            <p className="mt-4 text-sm text-slate-500">
+            <SignalBadge label={space.scope} />
+            <h4 className="mt-4 text-xl font-semibold text-lunar">{space.name}</h4>
+            <p className="mt-4 text-sm text-lunar/56">
               {space.members} members with role-aware access.
             </p>
-          </article>
+          </AuroraSurface>
         ))}
       </section>
     </>
   );
 }
-

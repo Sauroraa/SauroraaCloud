@@ -1,3 +1,5 @@
+import { SignalBadge } from "./SignalBadge";
+
 type PageIntroProps = {
   eyebrow: string;
   title: string;
@@ -6,15 +8,19 @@ type PageIntroProps = {
 
 export function PageIntro({ eyebrow, title, description }: PageIntroProps) {
   return (
-    <section className="mt-6 rounded-[32px] border border-white/60 bg-white/78 p-6 shadow-halo backdrop-blur">
-      <p className="text-xs uppercase tracking-[0.28em] text-slate-400">
-        {eyebrow}
-      </p>
-      <h3 className="mt-3 text-2xl font-semibold text-ink">{title}</h3>
-      <p className="mt-3 max-w-3xl text-sm leading-7 text-slate-600">
+    <section className="aurora-surface mt-6 rounded-[34px] p-7 sm:p-8">
+      <div className="flex flex-wrap items-center gap-3">
+        <SignalBadge label="Signal Active" />
+        <p className="text-xs uppercase tracking-[0.28em] text-lunar/40">
+          {eyebrow}
+        </p>
+      </div>
+      <h3 className="mt-3 max-w-4xl text-3xl font-semibold tracking-[-0.03em] text-lunar sm:text-4xl">
+        {title}
+      </h3>
+      <p className="mt-4 max-w-3xl text-sm leading-7 text-lunar/66 sm:text-base">
         {description}
       </p>
     </section>
   );
 }
-

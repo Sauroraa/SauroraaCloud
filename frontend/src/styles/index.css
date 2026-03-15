@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 :root {
-  color: #08111f;
-  background: #eef3fb;
+  color: #eef4ff;
+  background: #040812;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
 }
 
 * {
@@ -25,9 +26,113 @@ body {
   margin: 0;
   min-width: 320px;
   font-family: "Segoe UI", system-ui, sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(138, 125, 255, 0.18), transparent 24%),
+    linear-gradient(180deg, #030711 0%, #09121f 48%, #07111d 100%);
 }
 
 button,
 input {
   font: inherit;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(130, 214, 255, 0.12), transparent 0 22%),
+    radial-gradient(circle at 80% 14%, rgba(138, 125, 255, 0.16), transparent 0 18%),
+    radial-gradient(circle at 50% 120%, rgba(87, 199, 196, 0.14), transparent 0 26%);
+  filter: blur(24px);
+  opacity: 0.9;
+  animation: atmosphere-drift 20s ease-in-out infinite alternate;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 95%);
+  opacity: 0.28;
+}
+
+#root {
+  position: relative;
+  isolation: isolate;
+}
+
+.aurora-surface {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(165, 184, 221, 0.14);
+  background:
+    linear-gradient(180deg, rgba(18, 28, 48, 0.82) 0%, rgba(7, 12, 23, 0.92) 100%);
+  box-shadow:
+    0 0 0 1px rgba(128, 152, 188, 0.04),
+    0 30px 70px rgba(2, 6, 15, 0.44);
+  backdrop-filter: blur(24px);
+}
+
+.aurora-surface::before {
+  content: "";
+  position: absolute;
+  inset: -30% 35% 55% -10%;
+  background: radial-gradient(circle, rgba(138, 125, 255, 0.18), transparent 60%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.aurora-surface::after {
+  content: "";
+  position: absolute;
+  inset: auto 16px 0 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(130, 214, 255, 0.38), transparent);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.signal-grid {
+  position: relative;
+}
+
+.signal-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(87, 199, 196, 0.05) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: signal-sweep 9s linear infinite;
+  pointer-events: none;
+}
+
+.vein-line {
+  background: linear-gradient(90deg, rgba(130, 214, 255, 0.06), rgba(130, 214, 255, 0.44), rgba(138, 125, 255, 0.08));
+}
+
+@keyframes atmosphere-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(0, -18px, 0) scale(1.06);
+  }
+}
+
+@keyframes signal-sweep {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
 }
