@@ -55,7 +55,7 @@ chmod +x infra/deploy/deploy.sh
 
 Before public launch:
 
-- Point `cloud.sauroraa.com` and `api.cloud.sauroraa.com` to the VPS IP
+- Point `cloud.sauroraa.be` and `api.cloud.sauroraa.be` to the VPS IP
 - Replace the HTTP-only Nginx config with TLS termination
 - Add Let's Encrypt certificates or your existing certificate chain
 
@@ -74,4 +74,3 @@ docker compose --env-file infra/deploy/.env.prod -f infra/docker-compose.prod.ym
 - The current stack is a clean production baseline, not a finished SaaS platform
 - MariaDB and Redis stay on the internal Docker network only
 - Backups, TLS automation, and object storage should be added before sensitive production usage
-
